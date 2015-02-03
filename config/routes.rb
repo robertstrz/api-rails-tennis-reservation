@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'courts/show'
+
   get 'articles/new'
 
   get 'articles/show'

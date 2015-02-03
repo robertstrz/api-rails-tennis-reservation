@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   protect_from_forgery
-  #skip_before_action :verify_authenticity_token, if: :json_request?
+  skip_before_action :verify_authenticity_token, if: :json_request?
   # GET /users
   # GET /users.json
   def index
@@ -64,9 +64,12 @@ class UsersController < ApplicationController
     end
   end
   def gettoken
-      user = User.find_by(email: params[:user][:email])
-      if user != nil
-        msg = { token: user.access_token }
+      puts params.inspect
+      params.require(:user).permit(:name) if params[:post]
+      @user = User.find_by(email: params[:user][:email])
+      p @check_if_good
+      if @user != nil && @user.authenticate(params[:user][:password])
+        msg = { token: @user.access_token }
       else
         msg = User.all
       end
