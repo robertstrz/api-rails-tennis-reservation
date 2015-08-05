@@ -41,8 +41,9 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
-        puts "JESTEM TU"
-        format.json { render :show, status: :created, location: @user }
+        puts "Uzytkownik stworzony"
+        msg = { token: @user.access_token, user_id: @user.id, user_name: @user.name }
+        format.json { render json: msg, status: :created }
       else
         format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }
