@@ -1,7 +1,7 @@
 class CourtsController < ApplicationController
-before_action :authenticate_user, only: [:new]
+  before_action :authenticate_user, only: [:new]
 
-protect_from_forgery
+  protect_from_forgery
   skip_before_action :verify_authenticity_token, if: :json_request?
 
   def show

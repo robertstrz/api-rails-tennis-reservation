@@ -11,27 +11,68 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150203162039) do
+ActiveRecord::Schema.define(version: 20150811195235) do
 
   create_table "articles", force: :cascade do |t|
-    t.integer  "user_id"
+    t.string   "title"
+    t.text     "content"
+    t.string   "author"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "image_uid"
+    t.string   "image_name"
+  end
+
+  create_table "cities", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "court_ammount"
+    t.string   "phone_number"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "courts", force: :cascade do |t|
+    t.integer  "court_number"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "city_id"
+  end
+
+  add_index "courts", ["city_id"], name: "index_courts_on_city_id"
+
+  create_table "micro_posts", force: :cascade do |t|
+    t.string   "title"
     t.text     "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "articles", ["user_id"], name: "index_articles_on_user_id"
-
-  create_table "courts", force: :cascade do |t|
-    t.integer  "court_number"
+  create_table "reservations", force: :cascade do |t|
+    t.integer  "court_id"
+    t.time     "from"
+    t.time     "to"
+    t.date     "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer  "user_id"
-    t.string   "time_from"
-    t.string   "time_to"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
   end
 
-  add_index "courts", ["user_id"], name: "index_courts_on_user_id"
+  add_index "reservations", ["court_id"], name: "index_reservations_on_court_id"
+  add_index "reservations", ["user_id"], name: "index_reservations_on_user_id"
+
+  create_table "tournaments", force: :cascade do |t|
+    t.string   "title"
+    t.text     "content"
+    t.date     "from"
+    t.date     "to"
+    t.string   "contact"
+    t.string   "author"
+    t.string   "surface"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "image_uid"
+    t.string   "city"
+  end
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at",      null: false

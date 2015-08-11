@@ -36,9 +36,9 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    addressable (2.3.8)
     arel (6.0.3)
     bcrypt (3.1.10)
-    bcrypt (3.1.10-x86-mingw32)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
@@ -54,10 +54,15 @@ GEM
     columnize (0.9.0)
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
+    dragonfly (1.0.10)
+      addressable (~> 2.3)
+      multi_json (~> 1.0)
+      rack (>= 1.3.0)
     erubis (2.7.0)
     execjs (2.5.2)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    hirb (0.7.3)
     i18n (0.7.0)
     jbuilder (2.3.1)
       activesupport (>= 3.0.0, < 5)
@@ -77,8 +82,7 @@ GEM
     multi_json (1.11.2)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
-    nokogiri (1.6.6.2-x86-mingw32)
-      mini_portile (~> 0.6.0)
+    pg (0.18.2)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -101,14 +105,19 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.2)
       loofah (~> 2.0)
+    rails_12factor (0.0.2)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.4)
+    rails_stdout_logging (0.0.3)
     railties (4.2.0)
       actionpack (= 4.2.0)
       activesupport (= 4.2.0)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
+    rb-readline (0.5.3)
     rdoc (4.2.0)
-      json (~> 1.4)
     rspec-core (3.3.2)
       rspec-support (~> 3.3.0)
     rspec-expectations (3.3.1)
@@ -144,7 +153,6 @@ GEM
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
     sqlite3 (1.3.10)
-    sqlite3 (1.3.10-x86-mingw32)
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
@@ -165,15 +173,19 @@ GEM
 
 PLATFORMS
   ruby
-  x86-mingw32
 
 DEPENDENCIES
   bcrypt (~> 3.1.9)
   byebug
   coffee-rails (~> 4.1.0)
+  dragonfly (~> 1.0.8)
+  hirb
   jbuilder (~> 2.0)
   jquery-rails
+  pg
   rails (= 4.2.0)
+  rails_12factor (= 0.0.2)
+  rb-readline
   rspec-rails
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)

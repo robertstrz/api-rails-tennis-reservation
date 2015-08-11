@@ -74,7 +74,7 @@ class UsersController < ApplicationController
           msg = { token: @user.access_token, user_id: @user.id }
           format.json { render json: msg }
         else
-          format.json { render json: {"Error"=>"User not found"}, status: :not_found }
+          format.json { render json: {"error"=>"User not found"}, status: :not_found }
         end
       end
   end
