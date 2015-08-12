@@ -47,8 +47,6 @@ group :development, :test do
 
   gem 'hirb'
 
-  gem 'dragonfly', '~> 1.0.8'
-
 end
 
 group :development do
