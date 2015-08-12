@@ -8,6 +8,7 @@ class CreateTournaments < ActiveRecord::Migration
       t.string :contact
       t.string :author
       t.string :surface
+      t.string :city
 
       t.timestamps null: false
     end
