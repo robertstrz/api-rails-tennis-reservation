@@ -5,6 +5,7 @@ class TournamentsController < ApplicationController
   # GET /tournaments.json
   def index
     @tournaments = Tournament.all
+    @host_address = request.protocol + request.host_with_port
   end
 
   # GET /tournaments/1
