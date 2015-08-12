@@ -25,6 +25,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bcrypt', '~> 3.1.9'
 
 gem 'dragonfly', '~> 1.0.8'
+gem 'dragonfly-s3_data_store'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -46,6 +47,8 @@ group :development, :test do
   gem 'rb-readline'
 
   gem 'hirb'
+
+  gem 'aws-sdk'
 
 end
 
