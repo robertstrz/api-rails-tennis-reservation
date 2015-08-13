@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    
+
     # respond_to do |format|
     #   if @user != nil
     #     format.html { redirect_to @user, notice: 'This is my user.' }
@@ -67,8 +67,7 @@ class UsersController < ApplicationController
   def gettoken
       puts params.inspect
       @user = User.find_by(email: params[:user][:email])
-      p @user
-        if @user != nil && @user.authenticate(params[:user][:password])
+      if @user != nil && @user.authenticate(params[:user][:password])
           msg = { token: @user.access_token, user_id: @user.id, user_name: @user.name, user_email: @user.email }
           render json: msg
         else
