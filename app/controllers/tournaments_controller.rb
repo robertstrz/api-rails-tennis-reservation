@@ -11,6 +11,7 @@ class TournamentsController < ApplicationController
   # GET /tournaments/1
   # GET /tournaments/1.json
   def show
+    @host_address = request.protocol + request.host_with_port
   end
 
   # GET /tournaments/new
