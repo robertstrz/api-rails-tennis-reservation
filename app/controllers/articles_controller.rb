@@ -5,32 +5,13 @@ class ArticlesController < ApplicationController
   # GET /articles.json
   def index
     @articles = Article.all
-    # objArray = Array.new
-    #
-    # @articles.each do |article|
-    #   # @singleArticle = @articles.find_by(:id => article.id).image.url
-    #   if !@articles.find_by(:id => article.id).image.nil?
-    #     @singleArticle = @articles.find_by(:id => article.id).image.url
-    #   else
-    #     @singleArticle = {id:55}
-    #   end
-    #   objArray.push(title: article.title, content: article.content, image_url: article.image.url)
-    # end
-    #
-    # respond_to do |format|
-    #   # if @article.save
-    #     format.html { redirect_to @article, notice: 'Article was successfully created.' }
-    #     format.json { render :json => objArray.to_json, status: :ok }
-    #   # else
-    #   #   format.html { render :new }
-    #   #   format.json { render json: @article.errors, status: :unprocessable_entity }
-    #   # end
-    # end
+    @host_address = request.protocol + request.host_with_port
   end
 
   # GET /articles/1
   # GET /articles/1.json
   def show
+    @host_address = request.protocol + request.host_with_port
   end
 
   # GET /articles/new
