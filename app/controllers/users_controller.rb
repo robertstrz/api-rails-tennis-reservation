@@ -36,8 +36,6 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-    puts "JESTEM TU"
-    p @user
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
@@ -45,8 +43,8 @@ class UsersController < ApplicationController
         format.json { render json: msg, status: :created }
       else
         format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-        p @user.errors
+        # format.json { render json: @user.errors, status: :unprocessable_entity }
+        format.json { render json: { "error"=>@user.errors.full_messages }, status: :unprocessable_entity }
       end
     end
   end
