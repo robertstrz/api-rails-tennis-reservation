@@ -19,6 +19,7 @@ Dragonfly.app.configure do
               secret_access_key: 'lUINqeGQoqMivrNx5MPrLf35y4nR8iqWYAFJnRFP',
               url_scheme: 'https'
   end
+  
 end
 
 # Logger
