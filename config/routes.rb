@@ -3,32 +3,12 @@ Rails.application.routes.draw do
 
   resources :articles
 
-  get 'city/new'
+  resources :city
 
-  get 'city/create'
-
-  get 'city/update'
-
-  get 'city/edit'
-
-  get 'city/destroy'
-
-  get 'city/index'
-
-  get 'city/show'
-
-  get 'courts/show'
-
-  get 'articles/new'
-
-  get 'articles/show'
-
-  resources :users do
-    resources :articles
-  end
+  resources :users
 
 
-  match '/gettoken', to: 'users#gettoken', via: 'post'
+  match '/gettoken.json', to: 'users#gettoken', via: 'post'
   match '/reservecourt', to: 'reservation#new', via: 'post'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

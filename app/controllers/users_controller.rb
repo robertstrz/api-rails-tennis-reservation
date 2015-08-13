@@ -41,8 +41,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
-        puts "Uzytkownik stworzony"
-        msg = { token: @user.access_token, user_id: @user.id, user_name: @user.name }
+        msg = { token: @user.access_token, user_id: @user.id, user_name: @user.name, user_email: @user.email }
         format.json { render json: msg, status: :created }
       else
         format.html { render :new }
@@ -69,14 +68,12 @@ class UsersController < ApplicationController
       puts params.inspect
       @user = User.find_by(email: params[:user][:email])
       p @user
-      respond_to do |format|
         if @user != nil && @user.authenticate(params[:user][:password])
-          msg = { token: @user.access_token, user_id: @user.id }
-          format.json { render json: msg }
+          msg = { token: @user.access_token, user_id: @user.id, user_name: @user.name, user_email: @user.email }
+          render json: msg
         else
-          format.json { render json: {"error"=>"User not found"}, status: :not_found }
+          render json: {"error"=>"User not found"}, status: :not_found
         end
-      end
   end
 
 
