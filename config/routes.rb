@@ -8,8 +8,6 @@ Rails.application.routes.draw do
 
   get 'static_pages/contact'
 
-
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   resources :tournaments
 
   resources :articles
