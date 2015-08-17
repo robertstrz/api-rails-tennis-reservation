@@ -50,6 +50,10 @@ group :development, :test do
 
   gem 'aws-sdk'
 
+  gem 'rails_admin'
+
+  gem 'bootstrap-sass'
+
 end
 
 group :development do

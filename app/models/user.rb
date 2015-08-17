@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 	validates :access_token, presence: true, uniqueness: true
 	has_secure_password
 
-	
+
  
   protected
     def ensure_login_has_a_value

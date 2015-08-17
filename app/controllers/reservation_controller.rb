@@ -5,9 +5,6 @@ class ReservationController < ApplicationController
   skip_before_action :verify_authenticity_token, if: :json_request?
 
   def new
-    p "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-    logger.info "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-    # puts params.inspect
     @reservation = Reservation.new(reservation_params)
     respond_to do |format|
       if @reservation.save && params[:reservation][:user_id].present? && params[:reservation][:from].present? && params[:reservation][:to].present?

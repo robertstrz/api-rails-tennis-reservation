@@ -1,8 +1,12 @@
 class UsersController < ApplicationController
   before_action :authenticate_user, only: [:index, :show, :edit, :update, :destroy, :set_user]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :set_user]
 
   protect_from_forgery
   skip_before_action :verify_authenticity_token, if: :json_request?
+  skip_before_filter :require_login
+
+
   # GET /users
   # GET /users.json
   def index
@@ -39,12 +43,12 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
-        msg = { token: @user.access_token, user_id: @user.id, user_name: @user.name, user_email: @user.email }
+        msg = {token: @user.access_token, user_id: @user.id, user_name: @user.name, user_email: @user.email}
         format.json { render json: msg, status: :created }
       else
         format.html { render :new }
         # format.json { render json: @user.errors, status: :unprocessable_entity }
-        format.json { render json: { "error"=>@user.errors.full_messages }, status: :unprocessable_entity }
+        format.json { render json: {"error" => @user.errors.full_messages}, status: :unprocessable_entity }
       end
     end
   end
@@ -62,15 +66,15 @@ class UsersController < ApplicationController
       end
     end
   end
+
   def gettoken
-      puts params.inspect
-      @user = User.find_by(email: params[:user][:email])
-      if @user != nil && @user.authenticate(params[:user][:password])
-          msg = { token: @user.access_token, user_id: @user.id, user_name: @user.name, user_email: @user.email }
-          render json: msg
-        else
-          render json: {"error"=>"User not found"}, status: :not_found
-        end
+    @user = User.find_by(email: params[:user][:email])
+    if @user != nil && @user.authenticate(params[:user][:password])
+      msg = {token: @user.access_token, user_id: @user.id, user_name: @user.name, user_email: @user.email}
+      render json: msg
+    else
+      render json: {"error" => "User not found"}, status: :not_found
+    end
   end
 
 
@@ -85,34 +89,39 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(:name, :surname, :email, :password)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def user_params
+    params.require(:user).permit(:name, :surname, :email, :password)
+  end
 
-    protected
-    def json_request?
-      request.format.json?
-    end
+  protected
+  def json_request?
+    request.format.json?
+  end
 
 
-    def authenticate_user
+  def authenticate_user
+    if json_request?
       authenticate_token || render_unauthorized
+    else
+      logged_in?
     end
+  end
 
-    def authenticate_token
-      authenticate_with_http_token do |token, options|
-        User.find_by(access_token: token)
-      end
+  def authenticate_token
+    authenticate_with_http_token do |token, options|
+      User.find_by(access_token: token)
     end
+  end
 
-    def render_unauthorized
-      self.headers['WWW-Authenticate'] = 'Token realm="Application"'
-      render json: 'Bad credentials', status: 401
-    end
+  def render_unauthorized
+    self.headers['WWW-Authenticate'] = 'Token realm="Application"'
+    render json: 'Bad credentials', status: 401
+  end
+
 end

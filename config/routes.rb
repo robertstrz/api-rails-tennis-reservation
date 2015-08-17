@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+
+  root 'sessions#new'
+
+  get 'static_pages/home'
+
+  get 'static_pages/help'
+
+  get 'static_pages/contact'
+
+
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   resources :tournaments
 
   resources :articles
@@ -7,6 +18,9 @@ Rails.application.routes.draw do
 
   resources :users
 
+  get    'login'   => 'sessions#new'
+  post   'login'   => 'sessions#create'
+  delete 'logout'  => 'sessions#destroy'
 
   match '/gettoken.json', to: 'users#gettoken', via: 'post'
   match '/reservecourt', to: 'reservation#new', via: 'post'
