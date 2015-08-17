@@ -100,10 +100,6 @@ class UsersController < ApplicationController
   end
 
   protected
-  def json_request?
-    request.format.json?
-  end
-
 
   def authenticate_user
     if json_request?

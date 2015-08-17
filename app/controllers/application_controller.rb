@@ -8,9 +8,13 @@ class ApplicationController < ActionController::Base
 
   private
   def require_login
-    if !logged_in?
+    if !logged_in? && !json_request?
       redirect_to root_url
     end
+  end
+
+  def json_request?
+    request.format.json?
   end
 
 end
