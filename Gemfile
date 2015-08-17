@@ -52,8 +52,6 @@ group :development, :test do
 
   gem 'bootstrap-sass'
 
-  gem 'rails_admin'
-
 end
 
 group :development do
@@ -61,6 +59,7 @@ group :development do
 end
 
 group :production do
+  gem 'rails_admin'
   gem 'pg'
   gem 'rails_12factor', '0.0.2'
   gem 'rack-cache', :require => 'rack/cache'
