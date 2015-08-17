@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150815203016) do
+ActiveRecord::Schema.define(version: 20150817212949) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
@@ -32,13 +32,12 @@ ActiveRecord::Schema.define(version: 20150815203016) do
   end
 
   create_table "courts", force: :cascade do |t|
+    t.integer  "city_id"
     t.integer  "court_number"
+    t.string   "surface"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-    t.integer  "city_id"
   end
-
-  add_index "courts", ["city_id"], name: "index_courts_on_city_id"
 
   create_table "micro_posts", force: :cascade do |t|
     t.string   "title"
@@ -49,16 +48,13 @@ ActiveRecord::Schema.define(version: 20150815203016) do
 
   create_table "reservations", force: :cascade do |t|
     t.integer  "court_id"
-    t.time     "from"
-    t.time     "to"
-    t.date     "date"
+    t.integer  "user_id"
+    t.time     "time_from"
+    t.time     "time_to"
+    t.date     "day"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "user_id"
   end
-
-  add_index "reservations", ["court_id"], name: "index_reservations_on_court_id"
-  add_index "reservations", ["user_id"], name: "index_reservations_on_user_id"
 
   create_table "tournaments", force: :cascade do |t|
     t.string   "title"

@@ -1,9 +1,6 @@
 class Court < ActiveRecord::Base
-  belongs_to :user
-  belongs_to :city
   has_many :reservations
+  belongs_to :city
 
-  # validates :user, :presence => true
-  # validates :city, :presence => true
-
+  validates :city_id, :presence => true
 end

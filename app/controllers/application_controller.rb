@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   private
   def require_login
     if !logged_in? && !json_request?
-      redirect_to root_url
+      redirect_to main_app.root_path
     end
   end
 

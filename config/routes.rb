@@ -17,6 +17,10 @@ Rails.application.routes.draw do
 
   resources :users
 
+  resources :courts
+
+  resources :reservations
+
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'

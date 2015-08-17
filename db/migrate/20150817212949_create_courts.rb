@@ -1,8 +1,9 @@
 class CreateCourts < ActiveRecord::Migration
   def change
     create_table :courts do |t|
+      t.references :city
       t.integer :court_number
-      t.string :court_surface
+      t.string :surface
 
       t.timestamps null: false
     end

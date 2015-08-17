@@ -55,6 +55,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'rails_admin'
   gem 'sqlite3'
 end
 
