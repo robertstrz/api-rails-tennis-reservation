@@ -17,4 +17,12 @@ class ApplicationController < ActionController::Base
     request.format.json?
   end
 
+  def verified_request?
+    if request.content_type == "application/json"
+      true
+    else
+      super()
+    end
+  end
+
 end

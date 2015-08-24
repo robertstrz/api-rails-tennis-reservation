@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150817212949) do
+ActiveRecord::Schema.define(version: 20150818165146) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
@@ -49,9 +49,8 @@ ActiveRecord::Schema.define(version: 20150817212949) do
   create_table "reservations", force: :cascade do |t|
     t.integer  "court_id"
     t.integer  "user_id"
-    t.time     "time_from"
-    t.time     "time_to"
-    t.date     "day"
+    t.datetime "time_from"
+    t.datetime "time_to"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -26,7 +26,8 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
 
   match '/gettoken.json', to: 'users#gettoken', via: 'post'
-  match '/reservecourt', to: 'reservation#new', via: 'post'
+  match '/getreservations.json', to: 'reservations#getreservations', via: 'post'
+  match '/getuserreservations.json', to: 'reservations#getuserreservations', via: 'get'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

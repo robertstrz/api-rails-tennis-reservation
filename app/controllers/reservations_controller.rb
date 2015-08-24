@@ -1,5 +1,11 @@
 class ReservationsController < ApplicationController
   before_action :set_reservation, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user, only: [:getuserreservations, :destroy, :create, :new]
+
+
+  protect_from_forgery
+  # skip_before_action :verify_authenticity_token, if: :json_request?
+  skip_before_filter :require_login
 
   # GET /reservations
   # GET /reservations.json
@@ -61,6 +67,18 @@ class ReservationsController < ApplicationController
     end
   end
 
+  def getreservations
+    @city = City.find_by(id: params[:reservation][:id])
+    offset = params[:reservation][:offset]
+    @reservationDay = Date.today + offset
+    @getreservations = Reservation.where "DATE(time_from) = ?", Date.today + offset
+    puts @getreservations
+  end
+
+  def getuserreservations
+    @userreservations = Reservation.order(time_to: :desc).where "user_id = ? AND time_to > ?", @user.id, Time.now - 3.hours
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_reservation
@@ -69,6 +87,28 @@ class ReservationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def reservation_params
-      params.require(:reservation).permit(:court, :user, :time_from, :time_to, :day)
+      params.require(:reservation).permit(:court_id, :user_id, :time_from, :time_to, :day)
     end
+
+
+  def authenticate_user
+    if verified_request?
+      puts "AAAAAAAAAAAAA"
+      authenticate_token || render_unauthorized
+    else
+      puts "BBBBBAAAAAAAAAAAA"
+      logged_in?
+    end
+  end
+
+  def authenticate_token
+    authenticate_with_http_token do |token, options|
+      @user = User.find_by(access_token: token)
+    end
+  end
+
+  def render_unauthorized
+    self.headers['WWW-Authenticate'] = 'Token realm="Application"'
+    render json: 'Bad credentials', status: 401
+  end
 end
