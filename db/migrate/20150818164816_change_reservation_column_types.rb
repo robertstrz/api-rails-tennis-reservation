@@ -1,6 +1,8 @@
 class ChangeReservationColumnTypes < ActiveRecord::Migration
   def change
-	change_column :reservations, :time_to, 'datetime USING CAST(time_to AS datetime)'
-	change_column :reservations, :time_from, 'datetime USING CAST(time_from AS datetime)'
+  remove_column :reservations, :time_to
+  add_column :reservations, :time_to, :timestamp
+  remove_column :reservations, :time_from
+  add_column :reservations, :time_from, :timestamp
   end
 end
