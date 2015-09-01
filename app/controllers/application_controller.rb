@@ -8,14 +8,14 @@ class ApplicationController < ActionController::Base
 
   private
   def require_login
-    if !logged_in? && !json_request?
+    if !logged_in? && !verified_request?
       redirect_to main_app.root_path
     end
   end
 
-  def json_request?
-    request.format.json?
-  end
+  # def json_request?
+  #   request.format.json?
+  # end
 
   def verified_request?
     if request.content_type == "application/json"
@@ -23,6 +23,10 @@ class ApplicationController < ActionController::Base
     else
       super()
     end
+  end
+
+  def json_request?
+    request.format.symbol == :json
   end
 
 end

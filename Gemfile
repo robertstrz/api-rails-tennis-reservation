@@ -52,6 +52,8 @@ group :development, :test do
 
   gem 'bootstrap-sass'
 
+  gem "rails-erd"
+
 end
 
 group :development do

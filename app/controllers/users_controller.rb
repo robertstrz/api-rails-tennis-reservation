@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
   before_action :authenticate_user, only: [:index, :show, :edit, :update, :destroy, :set_user]
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :set_user]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
-  protect_from_forgery
-  skip_before_action :verify_authenticity_token, if: :json_request?
-  skip_before_filter :require_login
+  # protect_from_forgery
+  # skip_before_action :verify_authenticity_token, if: :json_request?
+  skip_before_action :require_login, :if => (:verified_request?)
 
 
   # GET /users
@@ -16,15 +16,6 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-
-    # respond_to do |format|
-    #   if @user != nil
-    #     format.html { redirect_to @user, notice: 'This is my user.' }
-    #     format.json { render json: @user, status: :ready, location: @user }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @user.errors, status: :unprocessable_entity }
-    #   end
   end
 
   # GET /users/new
