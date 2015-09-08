@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_admin, only: [:index]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :require_login, :except => [:gettoken, :create]
 
   # GET /users
   # GET /users.json
