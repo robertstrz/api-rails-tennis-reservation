@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   get 'static_pages/contact'
 
+  get 'static_pages/unauthorized'
+
   resources :tournaments
 
   resources :articles

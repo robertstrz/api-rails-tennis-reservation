@@ -1,11 +1,7 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user, only: [:index, :show, :edit, :update, :destroy, :set_user]
+  before_action :authenticate_user, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_admin, only: [:index]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
-  # protect_from_forgery
-  # skip_before_action :verify_authenticity_token, if: :json_request?
-  skip_before_action :require_login, :if => (:verified_request?)
-
 
   # GET /users
   # GET /users.json
@@ -38,8 +34,7 @@ class UsersController < ApplicationController
         format.json { render json: msg, status: :created }
       else
         format.html { render :new }
-        # format.json { render json: @user.errors, status: :unprocessable_entity }
-        format.json { render json: {"error" => @user.errors.full_messages}, status: :unprocessable_entity }
+        format.json { render json: {"error" => @user.errors.full_messages[0]}, status: :unprocessable_entity }
       end
     end
   end
@@ -68,7 +63,6 @@ class UsersController < ApplicationController
     end
   end
 
-
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
@@ -92,11 +86,17 @@ class UsersController < ApplicationController
 
   protected
 
+  def authenticate_admin
+    if !is_admin?
+      redirect_to static_pages_unauthorized_path
+    end
+  end
+
   def authenticate_user
     if json_request?
       authenticate_token || render_unauthorized
-    else
-      logged_in?
+    elsif !logged_in?
+      redirect_to main_app.root_path
     end
   end
 

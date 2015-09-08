@@ -2,11 +2,6 @@ class ReservationsController < ApplicationController
   before_action :set_reservation, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user, only: [:getuserreservations, :destroy, :create, :new]
 
-
-  protect_from_forgery
-  # skip_before_action :verify_authenticity_token, if: :json_request?
-  skip_before_filter :require_login
-
   # GET /reservations
   # GET /reservations.json
   def index
@@ -90,13 +85,10 @@ class ReservationsController < ApplicationController
       params.require(:reservation).permit(:court_id, :user_id, :time_from, :time_to, :day)
     end
 
-
   def authenticate_user
     if verified_request?
-      puts "AAAAAAAAAAAAA"
       authenticate_token || render_unauthorized
     else
-      puts "BBBBBAAAAAAAAAAAA"
       logged_in?
     end
   end
