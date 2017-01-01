@@ -1,7 +1,5 @@
 # API with Admin Panel - Tennis Court Reservation System
 
-[![Build Status](https://travis-ci.org/Rzodkiewka/LiveImageBackground.svg?branch=master)](https://travis-ci.org/Rzodkiewka/LiveImageBackground)
-
 ## EXAMPLE RESERVATION RESPONSE
 
 ```JSON
