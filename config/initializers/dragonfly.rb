@@ -4,7 +4,7 @@ require 'dragonfly'
 Dragonfly.app.configure do
   plugin :imagemagick
 
-  secret "a994b02ae1cf8dbbaa452bcbfd292a15fcf6b9b6a7ed4f00bddec6da5357ccb6"
+  secret "HAHA ;)"
 
   url_format "/media/:job/:name"
 
@@ -15,8 +15,8 @@ Dragonfly.app.configure do
   else
     datastore :s3,
               bucket_name: 'myrailscontainer',
-              access_key_id: 'AKIAJJB7RDBTO2S4WR3A',
-              secret_access_key: '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',
+              access_key_id: 'HAHA ;)',
+              secret_access_key: 'HAHA ;)',
               url_scheme: 'https'
   end
 
